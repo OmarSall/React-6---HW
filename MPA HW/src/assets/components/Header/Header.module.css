@@ -1,0 +1,28 @@
+.header {
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.link {
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.link:hover {
+    color: #fff;
+}
+
+.activeLink {
+    color: #646cff;
+    text-decoration: underline;
+}
