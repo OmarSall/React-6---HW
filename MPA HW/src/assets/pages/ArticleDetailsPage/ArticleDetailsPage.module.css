@@ -1,0 +1,44 @@
+.articleDetails {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: var(--background-color, #1a1a1a);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: var(--text-color, #eee);
+    text-align: left;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color, #646cff);
+}
+
+.content {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    margin-bottom: 2rem;
+}
+
+.modifyButton {
+    padding: 0.6em 1.2em;
+    background-color: var(--primary-color, #646cff);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.modifyButton:hover {
+    background-color: var(--primary-color-hover, #535bf2);
+}
+
+.error {
+    color: #ff5555;
+    text-align: center;
+    margin-top: 2rem;
+}
