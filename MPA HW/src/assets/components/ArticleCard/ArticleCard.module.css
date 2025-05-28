@@ -91,3 +91,10 @@
 .deleteButton:hover {
     background-color: #d9363e;
 }
+
+p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+

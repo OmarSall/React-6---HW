@@ -91,4 +91,6 @@ export async function deleteArticleAPI(id) {
     const articles = loadFromLocalStorage(LOCAL_STORAGE_KEY) || [];
     const updatedArticles = articles.filter((a) => a.id !== id);
     saveToLocalStorage(LOCAL_STORAGE_KEY, updatedArticles);
+
+    return;
 }

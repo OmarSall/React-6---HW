@@ -1,44 +1,112 @@
 .articleDetails {
-    max-width: 700px;
+    max-width: 600px;
     margin: 2rem auto;
-    padding: 1rem;
-    background-color: var(--background-color, #1a1a1a);
+    padding: 1.5rem;
+    background-color: #2c2c2c;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    color: var(--text-color, #eee);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    color: #fff;
     text-align: left;
 }
 
 .title {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: var(--primary-color, #646cff);
+    color: #f0f0f0;
 }
 
 .content {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    white-space: pre-wrap;
+    font-size: 1.1rem;
+    line-height: 1.5;
     margin-bottom: 2rem;
+    white-space: pre-wrap;
 }
 
-.modifyButton {
-    padding: 0.6em 1.2em;
-    background-color: var(--primary-color, #646cff);
-    color: white;
+.buttons {
+    display: flex;
+    width: 100%;
+}
+
+.buttons button {
+    flex-basis: 33.33%;
+    max-width: 33.33%;
+    text-align: center;
+    padding: 0.5rem;
+    box-sizing: border-box;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.buttons button:last-child {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Media query dla mniejszych ekranów */
+@media (max-width: 500px) {
+    .buttons button:not(:last-child) {
+        flex-basis: 110px; /* zwężamy wszystkie oprócz ostatniego */
+    }
+}
+
+.modifyButton,
+.deleteButton,
+.backButton {
+    cursor: pointer;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+    color: white;
+    margin-right: 1.2rem;
+}
+
+.modifyButton:last-child,
+.deleteButton:last-child,
+.backButton:last-child {
+    margin-right: 0;
+}
+
+.modifyButton {
+    background-color: #646cff;
 }
 
 .modifyButton:hover {
-    background-color: var(--primary-color-hover, #535bf2);
+    background-color: #4b56e0;
+}
+
+.deleteButton {
+    background-color: #ff4d4f;
+}
+
+.deleteButton:hover {
+    background-color: #d9363e;
+}
+
+.backButton {
+    background-color: #888;
+}
+
+.backButton:hover {
+    background-color: #666;
 }
 
 .error {
-    color: #ff5555;
+    max-width: 600px;
+    margin: 3rem auto;
+    color: #ff4d4f;
+    font-weight: bold;
     text-align: center;
-    margin-top: 2rem;
+}
+
+.notFound {
+    max-width: 600px;
+    margin: 3rem auto;
+    color: #ccc;
+    font-style: italic;
+    text-align: center;
 }
