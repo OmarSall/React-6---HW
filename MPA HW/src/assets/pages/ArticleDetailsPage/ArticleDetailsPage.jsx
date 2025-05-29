@@ -49,38 +49,37 @@ export default function ArticleDetailsPage() {
     if (loading) {
         return <Loader />;
     }
-    if (error) {
-        return <div>{error}</div>;
-    }
-    if (!article) {
-        return <div>Article not found.</div>;
-    }
-
 
     return (
         <div className={styles.articleDetails}>
-            <h1 className={styles.title}>{article.title}</h1>
-            <p className={styles.content}>{article.content}</p>
-            <div className={styles.buttons}>
-                <button
-                    className={styles.modifyButton}
-                    onClick={() => navigate(`/articles/${id}/modify`)}
-                >
-                    Modify Article
-                </button>
-                <button
-                    className={styles.deleteButton}
-                    onClick={handleDelete}
-                >
-                    Delete Article
-                </button>
-                <button
-                    className={styles.backButton}
-                    onClick={() => navigate("/articles")}
-                >
-                    ← Back to Articles
-                </button>
-            </div>
+            {error && <div className={styles.error}>{error}</div>}
+            {!error && !article && <div>Article not found.</div>}
+            {!error && article && (
+                <>
+                    <h1 className={styles.title}>{article.title}</h1>
+                    <p className={styles.content}>{article.content}</p>
+                    <div className={styles.buttons}>
+                        <button
+                            className={styles.modifyButton}
+                            onClick={() => navigate(`/articles/${id}/modify`)}
+                        >
+                            Modify Article
+                        </button>
+                        <button
+                            className={styles.deleteButton}
+                            onClick={handleDelete}
+                        >
+                            Delete Article
+                        </button>
+                        <button
+                            className={styles.backButton}
+                            onClick={() => navigate("/articles")}
+                        >
+                            ← Back to Articles
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 }

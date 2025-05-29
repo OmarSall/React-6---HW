@@ -32,7 +32,7 @@ export function useArticlesData() {
         } catch (err) {
             console.error("Create error:", err);
         }
-    }, [fetchArticles]);
+    }, []);
 
     const deleteArticle = useCallback(async (id) => {
         try {

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ArticleForm from "../../components/ArticleForm/ArticleForm";
 import { createArticleAPI } from "../../functionalities/articlesApi.js";
-import { API_BASE_URL, ENDPOINTS } from "../../constants/api";
 import styles from "./NewArticlePage.module.css";
 
 export default function NewArticlePage() {

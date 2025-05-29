@@ -37,7 +37,7 @@ export default function EditArticlePage() {
         event.preventDefault();
         try {
             await updateArticleAPI(id, { title, content });
-            navigate(`/articles/${id}`);
+            navigate(-1);
         } catch (error) {
             console.error(error);
             alert("Failed to update article.");
