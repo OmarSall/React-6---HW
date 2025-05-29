@@ -27,7 +27,7 @@ export default function useArticlesList() {
         setLoading(true);
         setError(null);
         try {
-            const data = await fetchArticlesAPI();
+            const data = await fetchArticlesAPI(debouncedSearch);
             setArticles(data);
             saveToLocalStorage("articles", data);
         } catch (err) {
@@ -36,7 +36,7 @@ export default function useArticlesList() {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [debouncedSearch]);
 
     useEffect(() => {
         (async () => {
@@ -57,14 +57,11 @@ export default function useArticlesList() {
     }, [articles]);
 
     const filteredArticles = useMemo(() => {
-        let filtered = articles.filter(({ title, content }) =>
-            `${title} ${content}`.toLowerCase().includes(debouncedSearch.toLowerCase())
-        );
         if (showFavoritesOnly) {
-            filtered = filtered.filter((article) => favorites.includes(article.id));
+            return articles.filter((article) => favorites.includes(article.id));
         }
-        return filtered;
-    }, [articles, debouncedSearch, showFavoritesOnly, favorites]);
+        return articles;
+    }, [articles, showFavoritesOnly, favorites]);
 
     const toggleShowFavoritesOnly = () => {
         setShowFavoritesOnly((prev) => !prev);

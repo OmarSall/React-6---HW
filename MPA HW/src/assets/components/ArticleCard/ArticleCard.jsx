@@ -1,25 +1,21 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import styles from "./ArticleCard.module.css";
-import { deleteArticleAPI } from "../../functionalities/articlesApi.js";
 import {loadFromLocalStorage, saveToLocalStorage} from "../../functionalities/localStorage";
 import { useFavorite } from "../../hooks/useFavorite";
 
-
-export default function ArticleCard({article, onDelete, onFavoriteToggle}) {
+export default function ArticleCard({article, onDelete, onFavoriteToggle = () => {} }) {
     const {id, title, content} = article;
-    const navigate = useNavigate();
-    const { isFavorite, toggleFavorite } = useFavorite(id);
+    const {isFavorite, toggleFavorite} = useFavorite(id);
 
-    const handleDelete = async () => {
+    const handleDeleteAction = async () => {
         const confirmed = confirm("Are you sure you want to delete this article?");
         if (!confirmed) {
             return;
         }
         try {
-            await deleteArticleAPI(id);
+            await onDelete?.(id);
             const updated = loadFromLocalStorage("articles")?.filter(a => a.id !== id);
             saveToLocalStorage("articles", updated || []);
-            onDelete?.(id); // Inform parent to re-fetch
         } catch (error) {
             console.error("Delete failed:", error);
             alert("Error deleting article.");
@@ -60,7 +56,7 @@ export default function ArticleCard({article, onDelete, onFavoriteToggle}) {
                     className={styles.deleteButton}
                     onClick={(e) => {
                         e.stopPropagation()
-                        void handleDelete();
+                        void handleDeleteAction();
                     }}>
                     🗑 Delete
                 </button>

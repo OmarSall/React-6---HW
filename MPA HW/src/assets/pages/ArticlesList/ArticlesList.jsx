@@ -2,11 +2,9 @@ import { Link } from "react-router-dom";
 import styles from "./ArticlesList.module.css";
 import Loader from "../../components/Loader/Loader";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
-
 import useArticlesList from "../../hooks/useArticlesList"
 
 export default function ArticlesList() {
-
     const {
         filteredArticles,
         search,
@@ -18,7 +16,6 @@ export default function ArticlesList() {
         handleDelete,
         handleFavoriteToggle
     } = useArticlesList();
-
 
     return (
         <div className={styles.wrapper}>

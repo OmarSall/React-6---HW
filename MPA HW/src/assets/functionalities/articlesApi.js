@@ -4,11 +4,14 @@ import { saveToLocalStorage, loadFromLocalStorage } from "./localStorage";
 const LOCAL_STORAGE_KEY = "articles";
 
 // GET: Fetch all articles (from localStorage fallback)
-export async function fetchArticlesAPI() {
+export async function fetchArticlesAPI(search = "") {
     try {
-        const response = await fetch(ENDPOINTS.ARTICLES);
+        const query = search ? `?search=${encodeURIComponent(search)}` : "";
+        const url = `${ENDPOINTS.ARTICLES}${query}`;
+        const response = await fetch(url);
         if (!response.ok) {
-            throw new Error("Failed to fetch articles");
+            const message = await response.text();
+            throw new Error(`HTTP error! Status: ${response.status} - ${message}`)
         }
         const data = await response.json();
         saveToLocalStorage(LOCAL_STORAGE_KEY, data);
@@ -80,11 +83,13 @@ export async function updateArticleAPI(id, updatedFields) {
 
 // DELETE: Remove article by ID
 export async function deleteArticleAPI(id) {
-    const response = await fetch(ENDPOINTS.ARTICLE_BY_ID(id), {
+    const url = ENDPOINTS.ARTICLE_BY_ID(id);
+    console.log("DELETE request to:", url);
+    const response = await fetch(url, {
         method: "DELETE",
     });
     if (!response.ok) {
-        throw new Error("Failed to delete article");
+        throw new Error(`Failed to delete article (status: ${response.status})`);
     }
 
     // Update localStorage
