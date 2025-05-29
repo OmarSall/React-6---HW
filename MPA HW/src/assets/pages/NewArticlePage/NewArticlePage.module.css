@@ -24,3 +24,9 @@
 .backButton:hover {
     background-color: #5d5dff;
 }
+
+.backButton:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    color: #666;
+}

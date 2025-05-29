@@ -55,6 +55,7 @@ export function useArticlesData() {
     useEffect(() => {
         fetchArticles();
     }, [fetchArticles]);
+
     return {
         articles,
         loading,

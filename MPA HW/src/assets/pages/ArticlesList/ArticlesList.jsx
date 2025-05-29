@@ -1,56 +1,24 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDebounce } from "use-debounce";
+import { Link } from "react-router-dom";
 import styles from "./ArticlesList.module.css";
 import Loader from "../../components/Loader/Loader";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
-import { fetchArticlesAPI, deleteArticleAPI } from "../../functionalities/articlesApi";
-import { loadFromLocalStorage, saveToLocalStorage } from "../../functionalities/localStorage";
+
+import useArticlesList from "../../hooks/useArticlesList"
 
 export default function ArticlesList() {
-    const [articles, setArticles] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [search, setSearch] = useState("");
-    const [debouncedSearch] = useDebounce(search, 300);
-    const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
-    const [favorites, setFavorites] = useState([]);
-    const navigate = useNavigate();
 
-    const fetchArticles = useCallback(async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const data = await fetchArticlesAPI();
-            setArticles(data);
-            saveToLocalStorage("articles", data);
-        } catch (error) {
-            console.error(error);
-            setError("Failed to load articles.");
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    const {
+        filteredArticles,
+        search,
+        setSearch,
+        loading,
+        error,
+        showFavoritesOnly,
+        toggleShowFavoritesOnly,
+        handleDelete,
+        handleFavoriteToggle
+    } = useArticlesList();
 
-    useEffect(() => {
-        fetchArticles();
-        const storedFavorites = loadFromLocalStorage("favorites") || [];
-        setFavorites(storedFavorites);
-    }, [fetchArticles]);
-
-    const filteredArticles = useMemo(() => {
-        let filtered = articles.filter(({ title, content }) =>
-            `${title} ${content}`.toLowerCase().includes(debouncedSearch.toLowerCase())
-        );
-        if (showFavoritesOnly) {
-            filtered = filtered.filter((article) => favorites.includes(article.id));
-        }
-        return filtered;
-    }, [articles, debouncedSearch, showFavoritesOnly, favorites]);
-
-    const handleDelete = (deletedId) => {
-        setArticles(prev => prev.filter(article => article.id !== deletedId));
-    };
 
     return (
         <div className={styles.wrapper}>
@@ -64,7 +32,7 @@ export default function ArticlesList() {
                         <input
                             type="checkbox"
                             checked={showFavoritesOnly}
-                            onChange={() => setShowFavoritesOnly(prev => !prev)}
+                            onChange={toggleShowFavoritesOnly}
                         />
                         Show Favorites Only
                     </label>
@@ -79,16 +47,17 @@ export default function ArticlesList() {
             </div>
 
             {error && <p className={styles.error}>{error}</p>}
+
             {loading ? (
-                <Loader/>
+                <Loader />
             ) : (
                 <div className={styles.articlesGrid}>
                     {filteredArticles.map((article) => (
                         <ArticleCard
                             key={article.id}
                             article={article}
-                            onClick={() => navigate(`/articles/${article.id}`)}
                             onDelete={handleDelete}
+                            onFavoriteToggle={handleFavoriteToggle}
                         />
                     ))}
                 </div>

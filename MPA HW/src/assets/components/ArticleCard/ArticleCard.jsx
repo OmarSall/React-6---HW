@@ -5,36 +5,44 @@ import {loadFromLocalStorage, saveToLocalStorage} from "../../functionalities/lo
 import { useFavorite } from "../../hooks/useFavorite";
 
 
-export default function ArticleCard({article, onDelete}) {
+export default function ArticleCard({article, onDelete, onFavoriteToggle}) {
     const {id, title, content} = article;
     const navigate = useNavigate();
     const { isFavorite, toggleFavorite } = useFavorite(id);
 
     const handleDelete = async () => {
-        if (confirm("Are you sure you want to delete this article?")) {
-            try {
-                await deleteArticleAPI(id);
-                const updated = loadFromLocalStorage("articles")?.filter(a => a.id !== id);
-                saveToLocalStorage("articles", updated || []);
-                onDelete?.(id); // Inform parent to re-fetch
-            } catch (error) {
-                console.error("Delete failed:", error);
-                alert("Error deleting article.");
-            }
+        const confirmed = confirm("Are you sure you want to delete this article?");
+        if (!confirmed) {
+            return;
         }
+        try {
+            await deleteArticleAPI(id);
+            const updated = loadFromLocalStorage("articles")?.filter(a => a.id !== id);
+            saveToLocalStorage("articles", updated || []);
+            onDelete?.(id); // Inform parent to re-fetch
+        } catch (error) {
+            console.error("Delete failed:", error);
+            alert("Error deleting article.");
+        }
+
+    };
+
+    const handleFavoriteClick = () => {
+        toggleFavorite();
+        onFavoriteToggle?.();
     };
 
     return (
         <div className={styles.card}>
             <h3 className={styles.title}>{title}</h3>
             <span
-                onClick={toggleFavorite}
+                onClick={handleFavoriteClick}
                 className={`${styles.favoriteStar} ${isFavorite ? styles.favorite : ""}`}
                 title={isFavorite ? "Remove from favorites" : "Add to favorites"}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) =>
-                    e.key === "Enter" && toggleFavorite()}
+                onKeyDown={(event) =>
+                    event.key === "Enter" && handleFavoriteClick()}
             >
                     ★
             </span>

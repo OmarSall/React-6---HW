@@ -70,6 +70,12 @@ export default function useArticlesList() {
         setShowFavoritesOnly((prev) => !prev);
     };
 
+    const handleFavoriteToggle = () => {
+        const updatedFavorites = loadFromLocalStorage("favorites") || [];
+        console.log("Updated favorites:", updatedFavorites);
+        setFavorites(updatedFavorites);
+    };
+
     return {
         articles,
         filteredArticles,
@@ -80,5 +86,6 @@ export default function useArticlesList() {
         showFavoritesOnly,
         toggleShowFavoritesOnly,
         handleDelete,
+        handleFavoriteToggle,
     };
 }

@@ -20,11 +20,6 @@
     color: #fff;
 }
 
-.snippet {
-    color: #ccc;
-    margin-bottom: 1rem;
-}
-
 .actions {
     display: flex;
     gap: 1rem;
@@ -74,7 +69,6 @@
     transition: color 0.2s ease;
 }
 
-
 .favoriteStar:hover {
     color: gold;
 }
@@ -97,4 +91,3 @@ p {
     word-break: break-word;
     white-space: normal;
 }
-

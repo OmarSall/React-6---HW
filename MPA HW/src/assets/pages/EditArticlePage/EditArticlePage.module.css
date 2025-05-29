@@ -80,3 +80,8 @@ h1 {
     font-weight: bold;
     margin-bottom: 1rem;
 }
+
+.saveButton:disabled {
+    background-color: #a5d6a7;
+    cursor: not-allowed;
+}

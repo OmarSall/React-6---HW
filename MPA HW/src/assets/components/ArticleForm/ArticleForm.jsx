@@ -25,6 +25,7 @@ export default function ArticleForm({ initialData = {}, onSubmit, submitLabel = 
             <label className={styles.label}>
                 Title
                 <input
+                    name="title"
                     className={styles.input}
                     type="text"
                     value={title}
@@ -34,7 +35,8 @@ export default function ArticleForm({ initialData = {}, onSubmit, submitLabel = 
             <label className={styles.label}>
                 Content
                 <textarea
-                    className={styles.input}
+                    name="content"
+                    className={`${styles.input} ${styles.textarea}`}
                     value={content}
                     onChange={(event) => setContent(event.target.value)}
                     rows={8}

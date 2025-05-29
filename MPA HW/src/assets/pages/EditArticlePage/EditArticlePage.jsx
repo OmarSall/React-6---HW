@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./EditArticlePage.module.css";
 import { updateArticleAPI, fetchArticleByIdAPI } from "../../functionalities/articlesApi";
-import { loadFromLocalStorage, saveToLocalStorage } from "../../functionalities/localStorage";
 import Loader from "../../components/Loader/Loader";
 
 export default function EditArticlePage() {
@@ -38,7 +37,7 @@ export default function EditArticlePage() {
         event.preventDefault();
         try {
             await updateArticleAPI(id, { title, content });
-            navigate(`/articles/`);
+            navigate(`/articles/${id}`);
         } catch (error) {
             console.error(error);
             alert("Failed to update article.");
@@ -55,7 +54,11 @@ export default function EditArticlePage() {
     return (
         <div className={styles.wrapper}>
             <h1>Edit Article</h1>
-            <form onSubmit={handleUpdate} className={styles.form}>
+            <form
+                onSubmit={handleUpdate}
+                className={styles.form}
+                autoComplete="off"
+            >
                 <input
                     type="text"
                     placeholder="Title"
@@ -74,7 +77,9 @@ export default function EditArticlePage() {
                 <div className={styles.actions}>
                     <button
                         type="submit"
-                        className={styles.saveButton}>
+                        className={styles.saveButton}
+                        disabled={loading}
+                    >
                         Save
                     </button>
                     <button
