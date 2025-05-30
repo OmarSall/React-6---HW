@@ -17,7 +17,7 @@ export async function fetchArticlesAPI(search = "") {
         saveToLocalStorage(LOCAL_STORAGE_KEY, data);
         return data;
     } catch (error) {
-        console.error("Fetch failed, loading articles from localStorage...");
+        console.error("Fetch failed, loading articles from localStorage...", error);
         const cachedArticles = loadFromLocalStorage(LOCAL_STORAGE_KEY);
         if (cachedArticles) {
             return cachedArticles;
