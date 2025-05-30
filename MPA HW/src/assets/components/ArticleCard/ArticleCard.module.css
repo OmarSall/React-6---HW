@@ -1,0 +1,93 @@
+.card {
+    width: 320px;
+    position: relative;
+    background-color: #2c2c2c;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    margin-bottom: 0.1rem;
+    text-align: left;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.title {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.viewButton,
+.editButton,
+.deleteButton {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.viewButton {
+    background-color: #646cff;
+    color: white;
+}
+
+.viewButton:hover {
+    background-color: #4b56e0;
+    color: white;
+}
+
+.editButton {
+    background-color: #888;
+    color: white;
+}
+
+.editButton:hover {
+    background-color: #666;
+    color: white;
+}
+
+.favoriteStar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.4rem;
+    color: #ccc;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.favoriteStar:hover {
+    color: gold;
+}
+
+.favorite {
+    color: gold;
+}
+
+.deleteButton {
+    background-color: #ff4d4f;
+    color: white;
+}
+
+.deleteButton:hover {
+    background-color: #d9363e;
+}
+
+p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
